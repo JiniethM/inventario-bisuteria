@@ -6,20 +6,36 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 </head>
 
-
 <body>
-  <h1>Inventario de Bisutería</h1>
+  <header>
+    <img src="Recurso 13.png" alt="Logo">
+    <h1>Inventario de Bisutería</h1>
+  </header>
+
+  <input type="text" id="busqueda" placeholder="Buscar producto...">
 
   <form id="formulario">
-    <input type="text" id="nombre" placeholder="Nombre del producto" required>
-    <input type="text" id="categoria" placeholder="Categoría" required>
-    <input type="number" id="precio" placeholder="Precio" required>
-    <input type="number" id="cantidad" placeholder="Cantidad" required>
-    <input type="text" id="observaciones" placeholder="Observaciones">
-    <button type="submit">Agregar</button>
-  </form>
+  <input type="hidden" id="producto-id">
+  <input type="text" id="nombre" placeholder="Nombre del producto" required>
+
+  <select id="categoria" required>
+    <option value="">Selecciona categoría</option>
+    <option value="Collares">Collares</option>
+    <option value="Pulseras">Pulseras</option>
+    <option value="Anillos">Anillos</option>
+    <option value="Aretes">Aretes</option>
+    <option value="Otros">Otros</option>
+  </select>
+
+  <input type="number" id="precio" placeholder="Precio" required>
+  <input type="number" id="cantidad" placeholder="Cantidad" required>
+  <input type="text" id="observaciones" placeholder="Observaciones">
+  <button type="submit">Agregar</button>
+</form>
+
 
   <table id="tabla">
     <thead>
@@ -35,9 +51,11 @@
     <tbody></tbody>
   </table>
 
+  <div class="export-buttons">
+    <button class="export" onclick="exportar()">Exportar Inventario (JSON)</button>
+    <button class="export" onclick="exportarPDF()">Exportar Inventario (PDF)</button>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
-<button onclick="exportar()">Exportar Inventario (JSON)</button>
-<button onclick="exportarPDF()">Exportar Inventario (PDF)</button>
-
