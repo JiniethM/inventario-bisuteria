@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inventario de Bisutería</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+</head>
+
+
+<body>
+  <h1>Inventario de Bisutería</h1>
+
+  <form id="formulario">
+    <input type="text" id="nombre" placeholder="Nombre del producto" required>
+    <input type="text" id="categoria" placeholder="Categoría" required>
+    <input type="number" id="precio" placeholder="Precio" required>
+    <input type="number" id="cantidad" placeholder="Cantidad" required>
+    <input type="text" id="observaciones" placeholder="Observaciones">
+    <button type="submit">Agregar</button>
+  </form>
+
+  <table id="tabla">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Categoría</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Observaciones</th>
+        <th>Eliminar</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+</html>
+<button onclick="exportar()">Exportar Inventario (JSON)</button>
+<button onclick="exportarPDF()">Exportar Inventario (PDF)</button>
+
