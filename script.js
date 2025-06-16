@@ -3,21 +3,31 @@ const tabla = document.querySelector("#tabla tbody");
 const busqueda = document.getElementById("busqueda");
 const idInput = document.getElementById("producto-id");
 
-document.addEventListener("DOMContentLoaded", cargarDatos);
+const costoInput = document.getElementById("costo");
+const precioInput = document.getElementById("precio");
+const gananciaInput = document.getElementById("ganancia");
+
+document.addEventListener("DOMContentLoaded", () => {
+  cargarDatos();
+  calcularGanancia();
+});
+
 busqueda.addEventListener("input", filtrarTabla);
+costoInput.addEventListener("input", calcularGanancia);
+precioInput.addEventListener("input", calcularGanancia);
 
 formulario.addEventListener("submit", function (e) {
   e.preventDefault();
 
-  // VALIDACIÓN
   const nombre = document.getElementById("nombre").value.trim();
   const categoria = document.getElementById("categoria").value.trim();
-  const precio = parseFloat(document.getElementById("precio").value);
+  const costo = parseFloat(costoInput.value);
+  const precio = parseFloat(precioInput.value);
   const cantidad = parseInt(document.getElementById("cantidad").value);
   const observaciones = document.getElementById("observaciones").value.trim();
 
-  if (!nombre || !categoria || isNaN(precio) || isNaN(cantidad) || precio < 0 || cantidad < 0) {
-    alert("Por favor completa correctamente todos los campos. Precio y cantidad deben ser positivos.");
+  if (!nombre || !categoria || isNaN(costo) || isNaN(precio) || isNaN(cantidad) || costo < 0 || precio < 0 || cantidad < 0) {
+    alert("Por favor completa correctamente todos los campos.");
     return;
   }
 
@@ -25,6 +35,7 @@ formulario.addEventListener("submit", function (e) {
     id: idInput.value ? parseInt(idInput.value) : Date.now(),
     nombre,
     categoria,
+    costo,
     precio,
     cantidad,
     observaciones,
@@ -40,12 +51,22 @@ formulario.addEventListener("submit", function (e) {
   cargarDatos();
 });
 
+function calcularGanancia() {
+  const costo = parseFloat(costoInput.value) || 0;
+  const precio = parseFloat(precioInput.value) || 0;
+  const ganancia = precio - costo;
+  gananciaInput.value = ganancia.toFixed(2);
+}
+
 function agregarFila(producto) {
+  const ganancia = producto.precio - producto.costo;
   const fila = tabla.insertRow();
   fila.innerHTML = `
     <td>${producto.nombre}</td>
     <td>${producto.categoria}</td>
-    <td>${producto.precio}</td>
+    <td>${producto.costo.toFixed(2)}</td>
+    <td>${producto.precio.toFixed(2)}</td>
+    <td>${ganancia.toFixed(2)}</td>
     <td>${producto.cantidad}</td>
     <td>${producto.observaciones}</td>
     <td>
@@ -90,7 +111,9 @@ function editarProducto(id) {
     idInput.value = producto.id;
     document.getElementById("nombre").value = producto.nombre;
     document.getElementById("categoria").value = producto.categoria;
-    document.getElementById("precio").value = producto.precio;
+    costoInput.value = producto.costo;
+    precioInput.value = producto.precio;
+    calcularGanancia();
     document.getElementById("cantidad").value = producto.cantidad;
     document.getElementById("observaciones").value = producto.observaciones;
   }
@@ -103,6 +126,7 @@ function obtenerProductos() {
 function limpiarFormulario() {
   formulario.reset();
   idInput.value = "";
+  calcularGanancia();
 }
 
 function filtrarTabla() {
@@ -139,14 +163,16 @@ async function exportarPDF() {
   const filas = productos.map(prod => [
     prod.nombre,
     prod.categoria,
-    prod.precio,
+    prod.costo.toFixed(2),
+    prod.precio.toFixed(2),
+    (prod.precio - prod.costo).toFixed(2),
     prod.cantidad,
     prod.observaciones
   ]);
 
   doc.autoTable({
     startY: 40,
-    head: [['Nombre', 'Categoría', 'Precio', 'Cantidad', 'Observaciones']],
+    head: [['Nombre', 'Categoría', 'Costo', 'Precio', 'Ganancia', 'Cantidad', 'Observaciones']],
     body: filas,
     theme: 'grid',
     headStyles: { fillColor: [140, 0, 50] },

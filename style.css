@@ -2,7 +2,7 @@ body {
   font-family: 'Poppins', sans-serif;
   background-color: #fafafa;
   color: #333;
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -29,13 +29,12 @@ h1 {
   margin: 0;
 }
 
-input[type="text"], input[type="number"], select {
-  padding: 12px 15px;
-  margin: 10px 5px;
-  border: 1px solid #ccc;
+#busqueda {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
   border-radius: 6px;
-  width: calc(100% - 30px);
-  box-sizing: border-box;
+  border: 1px solid #ccc;
   font-size: 14px;
 }
 
@@ -47,7 +46,37 @@ form {
   margin-bottom: 20px;
 }
 
+.form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.form-group {
+  flex: 1 1 45%;
+}
+
+.form-group-wide {
+  flex: 1 1 100%;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+input[readonly] {
+  background-color: #f0f0f0;
+  color: #444;
+  font-weight: bold;
+}
+
 form button {
+  margin-top: 20px;
   background-color: #C59D5F;
   color: white;
   border: none;
@@ -56,6 +85,7 @@ form button {
   cursor: pointer;
   transition: 0.3s;
   width: 100%;
+  font-size: 16px;
 }
 
 form button:hover {
@@ -117,11 +147,8 @@ button.export:hover {
   background-color: #00695c;
 }
 
-#busqueda {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 20px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+@media(max-width: 600px) {
+  .form-group {
+    flex: 1 1 100%;
+  }
 }

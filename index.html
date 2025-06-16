@@ -7,6 +7,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
@@ -18,31 +19,56 @@
   <input type="text" id="busqueda" placeholder="Buscar producto...">
 
   <form id="formulario">
-  <input type="hidden" id="producto-id">
-  <input type="text" id="nombre" placeholder="Nombre del producto" required>
+    <input type="hidden" id="producto-id">
 
-  <select id="categoria" required>
-    <option value="">Selecciona categoría</option>
-    <option value="Collares">Collares</option>
-    <option value="Pulseras">Pulseras</option>
-    <option value="Anillos">Anillos</option>
-    <option value="Aretes">Aretes</option>
-    <option value="Otros">Otros</option>
-  </select>
+    <div class="form-grid">
+      <div class="form-group">
+        <input type="text" id="nombre" placeholder="Nombre del producto" required>
+      </div>
 
-  <input type="number" id="precio" placeholder="Precio" required>
-  <input type="number" id="cantidad" placeholder="Cantidad" required>
-  <input type="text" id="observaciones" placeholder="Observaciones">
-  <button type="submit">Agregar</button>
-</form>
+      <div class="form-group">
+        <select id="categoria" required>
+          <option value="">Selecciona categoría</option>
+          <option value="Collares">Collares</option>
+          <option value="Brazaletes">Brazaletes</option>
+          <option value="Anillos">Anillos</option>
+          <option value="Aretes">Aretes</option>
+          <option value="Otros">Otros</option>
+        </select>
+      </div>
 
+      <div class="form-group">
+        <input type="number" id="costo" placeholder="Costo" min="0" step="0.01" required>
+      </div>
+
+      <div class="form-group">
+        <input type="number" id="precio" placeholder="Precio" min="0" step="0.01" required>
+      </div>
+
+      <div class="form-group">
+        <input type="text" id="ganancia" placeholder="Ganancia" readonly>
+      </div>
+
+      <div class="form-group">
+        <input type="number" id="cantidad" placeholder="Cantidad" min="0" required>
+      </div>
+
+      <div class="form-group-wide">
+        <input type="text" id="observaciones" placeholder="Observaciones">
+      </div>
+    </div>
+
+    <button type="submit">Agregar Producto</button>
+  </form>
 
   <table id="tabla">
     <thead>
       <tr>
         <th>Nombre</th>
         <th>Categoría</th>
+        <th>Costo</th>
         <th>Precio</th>
+        <th>Ganancia</th>
         <th>Cantidad</th>
         <th>Observaciones</th>
         <th>Eliminar</th>
